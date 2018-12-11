@@ -238,5 +238,86 @@ public class BinaryTreeClass {
         }
         return root ;
      }
-  }   
+    
   //---------------------------------------------------------------------------------
+  
+  public ArrayList<ArrayList<Integer>> levelOrderTraversalNonRecursive(TreeNode root ) {
+      ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>() ; // Final array List of array list
+      Queue<TreeNode> q = new LinkedList<TreeNode>() ;
+      q.offer(root) ;
+      q.offer(null) ;
+      ArrayList<Integer> curr = new ArrayList<Integer>() ;
+      Stack<ArrayList<Integer>> S = new Stack<ArrayList<Integer>>();
+      TreeNode T ;
+      while(!q.isEmpty()) {
+          T = q.poll() ;
+          if(T != null) {
+              curr.add(T.key) ;
+              if(T.left != null) {
+                  q.offer(T.left) ;
+              }
+              if(T.right != null) {
+                  q.offer(T.right);
+              }
+          } else {
+              ArrayList<Integer> c_curr = new ArrayList<Integer>(curr) ;
+              S.push(c_curr);
+              res.add(c_curr);
+              curr.clear();
+              if(!q.isEmpty())
+                  q.offer(null);
+          }
+      }
+
+      while(!S.isEmpty()) {
+          System.out.println(S.pop());
+      }
+      return res ;
+    }
+ }
+
+
+ //----------------------------------------------------------------------------------------
+
+  public int totalNodesInBinaryTree(TreeNode root) {
+		// Recursive
+		if(root == null ) return 0 ;
+		int nodesInLeftSubtree = 0;
+		int nodesInRightSubtree = 0 ;
+		if(root.left != null) {
+		   nodesInLeftSubtree = totalNodesInBinaryTree(root.left);
+	    } 
+	    if(root.right != null) {
+	    	nodesInRightSubtree = totalNodesInBinaryTree(root.right);
+	    }
+	    return 1 + nodesInLeftSubtree + nodesInRightSubtree ;	
+	}
+
+  //----------------------------------------------------------------------------------------
+  
+  	public int maxInBinaryTreeWithoutRecursion(TreeNode root) {
+		// We can use level order traversal
+	    Queue<TreeNode> q = new LinkedList<TreeNode>() ;
+	    int max = Integer.MIN_VALUE ;
+	    q.offer(root) ;
+	    q.offer(null) ;
+	    TreeNode T ;
+	    while(!q.isEmpty()) {
+	    	T = q.poll();
+	    	if(T != null) {
+	    		max = java.lang.Math.max(max,T.key);
+	    		if(T.left != null) {
+	    			q.offer(T.left) ;
+	    		}
+	    		if(T.right != null) {
+	    			q.offer(T.right) ;
+	    		}
+	    	} else {
+	    		if(!q.isEmpty()) {
+	    		  q.offer(null);
+	    		}
+	    	}
+	    	
+	    }    
+	    return max ;
+	}
