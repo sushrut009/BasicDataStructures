@@ -1,0 +1,68 @@
+  public class StackClass {
+    // StackClass ====>
+    protected int capacity ;
+    public static final int CAPACITY = 5 ; // This is the default capacity of the stack
+    protected int[] my_array ;  // Array to hold objects of type E
+    protected int top ;
+    // Constructor 1 :
+    public  StackClass() {
+        my_array = new int[CAPACITY] ;
+        capacity = CAPACITY ;
+        top = -1 ; // Creates an empty stack of capacity 10
+    }
+    // Constructor 2 :
+    public StackClass(int cap) {
+        my_array = new int[cap];
+        this.capacity = cap ;
+        top = -1 ; // Creates an empty stack of capacity cap
+    }
+
+    // Stack Functions :
+    // 1. push()
+    // 2. pop()
+    // 3. top()
+    // 4. isEmpty()
+    // 5. size()
+
+    public void push(int val) throws StackOverFlowException {
+        if(this.size() == capacity ) {
+            throw new StackOverFlowException("Stack is full . Cannot insert element . Delete to insert more");
+        }
+        my_array[++top] = val ;
+    }
+
+    public int pop() throws StackUnderFlowException {
+      if(isEmpty()) {
+          throw new StackUnderFlowException("Stack is empty . Cannot pop() an element from an empty stack");
+      }
+      return my_array[top--] ;
+    }
+
+    public int top() throws StackUnderFlowException {
+        if(isEmpty()) {
+            throw new StackUnderFlowException("Stack is empty . No top exists") ;
+        }
+        return my_array[top] ;
+    }
+
+    public boolean isEmpty() {
+        if(top == -1 ) return true ;
+        else    return false ;
+    }
+
+    public int size() {
+        return (top+1) ;
+    }
+
+    public void displayStack() {
+        int val ;
+        while(!this.isEmpty()) {
+            try {
+                val = this.pop();
+                System.out.println(val);
+            } catch(StackUnderFlowException e) {
+                System.out.printf(e.getMessage());
+            }
+        }
+    }
+}
