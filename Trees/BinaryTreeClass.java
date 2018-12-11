@@ -2,11 +2,11 @@ import java.util.Stack ;
 public class BinaryTreeClass {
     TreeNode root ;
 
-    // Constructor
+    // Constructor-------------------------------------------------------------------
     public BinaryTreeClass() {
         root = null ;
     }
-
+    // -----------------------------------------------------------------------------
     public void  insertInTree(int value) { // Insert into the binary search tree
         if(root == null) {
             root = new TreeNode(value) ;
@@ -31,7 +31,7 @@ public class BinaryTreeClass {
             prev.right = new TreeNode(value);
         }
     }
-
+    //-------------------------------------------------------------------------------
     public void displayTreeInOrder(TreeNode root) {
          if(root != null) {
              displayTreeInOrder(root.left);
@@ -42,7 +42,7 @@ public class BinaryTreeClass {
              displayTreeInOrder(root.right);
          }
     }
-
+    // -----------------------------------------------------------------------------
     public void inOrderTreeTraversalWithoutRecursion(TreeNode root) {
         // Uses stack
         TreeNode current = root ;
@@ -72,11 +72,10 @@ public class BinaryTreeClass {
                     }
                 }
             }
-
-
         }
-
     }
+    
+    //-------------------------------------------------------------------------------
 
     public TreeNode searchInBinarySearchTree(int  key , TreeNode rootNode) {
         if(rootNode == null) return null ;
@@ -89,9 +88,8 @@ public class BinaryTreeClass {
         } else {
             return searchInBinarySearchTree(key , rootNode.right);
         }
-
     }
-
+    //----------------------------------------------------------------------------------
     public TreeNode searchInBinarySearchTreeIterative(TreeNode rootNode , int key )  {
         TreeNode current = rootNode ;
         while(current != null) {
@@ -106,7 +104,8 @@ public class BinaryTreeClass {
 
         return null ;
     }  // searchInBinarySearchTreeIterative
-
+   
+    //----------------------------------------------------------------------------------
     public TreeNode findMinBST(TreeNode rootNode) {
         TreeNode current = rootNode ;
         while(current.left != null) {
@@ -114,22 +113,22 @@ public class BinaryTreeClass {
         }
         return current ;
     }
-
+    //----------------------------------------------------------------------------------
+    
     public TreeNode findMinRecurse(TreeNode rootNode) {
         if(rootNode.left == null) return rootNode ;
         return findMinRecurse(rootNode.left) ;
     }
-
+    //----------------------------------------------------------------------------------
 
     public TreeNode findMaxBST(TreeNode rootNode) {
         TreeNode current = rootNode ;
         while(current.right != null) {
             current = current.right ;
         }
-
         return current ;
     }
-
+    //----------------------------------------------------------------------------------
     public TreeNode Successor_BST(TreeNode x) {
         // We use stack so that we can go back to the parent node .
         // We do not use a parent pointer attribute , so stack is useful
@@ -143,13 +142,11 @@ public class BinaryTreeClass {
                 current = current.right ;
             }
         }
-
         if(current == null) return null ;
 
         if(current.right != null) {
             return findMinBST(current.right);
         }
-
         while(!S.isEmpty() && S.peek().right == current) {
             current = S.pop() ;
         }
@@ -160,7 +157,7 @@ public class BinaryTreeClass {
         }
     }
 
-
+    //----------------------------------------------------------------------------
     public TreeNode Predecessor_BST(TreeNode x) {
         // We use stack so that we can go back to the parent node .
         // We do not use a parent pointer attribute , so stack is useful
@@ -174,14 +171,12 @@ public class BinaryTreeClass {
                  current = current.right ;
              }
          }
-
          if(current  == null) {
              return null ;
          }
          if(current.left != null) {
            return findMaxBST(current.left) ;
          }
-
          while(!S.isEmpty() && S.peek().right != current) {
              current = S.pop() ;
          }
@@ -191,11 +186,11 @@ public class BinaryTreeClass {
              return S.pop();
          }
     }
-
+    //-----------------------------------------------------------------------------
     public void visitNode(TreeNode t) {
         System.out.println(t.key + " ");
     }
-    
+    //-----------------------------------------------------------------------------
     public void inOrderTreeTraversalWithoutRecursionNoStack(TreeNode T) {
        // Morris Inorder Traversal without stack
         TreeNode current = root ; // Root is pointed by the current node
@@ -209,7 +204,6 @@ public class BinaryTreeClass {
                 while(predecessor.right != current && predecessor.right != null ) {
                     predecessor = predecessor.right ;
                 }
-
                 if(predecessor.right == null) {
                     predecessor.right = current;
                     current = current.left ;
@@ -221,7 +215,7 @@ public class BinaryTreeClass {
             }
         }
     }
-
+    //------------------------------------------------------------------------------
     public TreeNode deleteNode(TreeNode root, int key) {
         if(root == null ) return null ;
 
@@ -243,5 +237,6 @@ public class BinaryTreeClass {
             }
         }
         return root ;
-    }
-}
+     }
+  }   
+  //---------------------------------------------------------------------------------
